@@ -44,6 +44,17 @@ app.get('/api/v1/student/:email', (req, res) => {
      })
 });
 
+app.put('/api/v1/student/:email', (req, res) => {
+     const { email } = req.params;
+     Student.findOneAndUpdate({ email }, req.body)
+          .then((Student) => {
+               res.status(200).json({ message: "Student updated!" });
+          })
+          .catch(() => {
+               res.status(404).json({ message: "Somthing went wrong" });
+          })
+});
+
 
 app.listen(process.env.PORT, () => {
      console.log(`Server is running on port ${process.env.PORT}`);
