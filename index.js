@@ -67,6 +67,19 @@ app.get('/api/v1/getStudent', async (req, res) => {
 });
 
 
+app.delete('/api/v1/studentDelete/:email', async (req, res) => {
+
+     const { email } = req.params;
+
+     await Student.findOneAndDelete({ email })
+          .then(() => {
+               res.status(200).json({ message: "Student deleted!" });
+          })
+          .catch(() => {
+               res.status(404).json({ message: "Student not found" })
+          })
+
+});
 
 
 app.listen(process.env.PORT, () => {
