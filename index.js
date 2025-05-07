@@ -55,6 +55,19 @@ app.put('/api/v1/student/:email', (req, res) => {
           })
 });
 
+app.get('/api/v1/getStudent', async (req, res) => {
+
+     await Student.find()
+          .then(Student => {
+               res.status(200).json(Student);
+          })
+          .catch(err => {
+               res.status(404).json({ message: "Somthing went wrong" });
+          })
+});
+
+
+
 
 app.listen(process.env.PORT, () => {
      console.log(`Server is running on port ${process.env.PORT}`);
