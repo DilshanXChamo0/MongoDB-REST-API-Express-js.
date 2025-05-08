@@ -9,6 +9,7 @@ const Student = require('./model/Student');
 require('dotenv').config();
 
 const app = express();
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -18,8 +19,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.post('/api/v1/student/save', (req, res) => {
 
-     const { name, age, email } = req.body;
-     const student = new Student({ name, age, email });
+     const student = new Student(req.body);
      student.save()
           .then(() => {
                res.status(200).json({ message: 'Student saved successfully' });
@@ -84,4 +84,4 @@ app.delete('/api/v1/studentDelete/:email', async (req, res) => {
 
 app.listen(process.env.PORT, () => {
      console.log(`Server is running on port ${process.env.PORT}`);
-});
+});  
